@@ -14,7 +14,7 @@ export const Chat = () => {
   const [room, setRoom] = useState<number | null>(null);
   const [content, setContent] = useState('')
   const [nombre,setNombre] = useState('');
-    const selectedFile = useFileStore((state) => state.selectedFile);
+      const selectedFile = useFileStore((state) => state.selectedFile);
       // const bottomRef = useRef(null);
 
   useEffect(() => {
