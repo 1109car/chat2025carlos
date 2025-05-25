@@ -9,7 +9,7 @@ interface SocketStore {
   disconnectSocket: () => void;
   waitForConnection: () => Promise<void>;       // ← Nuevo
   emitEvent: (eventName: string, data?: any) => Promise<void>; // ahora devuelve Promise
-  onEvent: (eventName: string, callback: (data: any) => void) => void;
+  onEvent: (eventName: string, callback: (data: any) => void) => void ;
 }
 const SOCKET_URL = "https://chatopcional-1.onrender.com/";
     
