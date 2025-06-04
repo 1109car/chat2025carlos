@@ -40,11 +40,12 @@ setRoom(data)
   }, []);
   useEffect(()=>{
      setMessages([]);
-  setRoom(null);
+   setRoom(null);
   },[selectedFile])
 
   function mensajeENviado(e: React.FormEvent) {
     e.preventDefault();
+    setContent('');
      console.log(room)
    
         emitEvent('mensajon', { room: room, message: content });
@@ -59,7 +60,7 @@ setRoom(data)
     <>
     {selectedFile ? ( <div className='grid grid-rows-[1fr_10fr_1fr] gap-4'>
      
-      <div className='bg-slate-700'>{selectedFile}</div>
+      <div className='bg-slate-600 p-3 rounded '><h3 className='font-bold text-xl'>{selectedFile}</h3></div>
       
      <div className=''>
        <div className=' overflow-y-auto h-[33rem]'>
@@ -86,20 +87,20 @@ setRoom(data)
       </div>
      </div>
 
-      <div className='border flex items-center'>
-        <form className='w-full flex' onSubmit={mensajeENviado}>
+      <div className=' flex items-center '>
+        <form className='w-full flex gap-2' onSubmit={mensajeENviado}>
           <input
-            className='w-[90%] border'
+            className='w-[90%] border focus:outline-none focus:ring-0 p-2 rounded'
             type="text"
             placeholder='Escribe un mensaje'
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
-          <button type="submit">Enviar</button>
+          <button className='hover:bg-white h-auto m-auto p-1 rounded hover:text-black' type="submit">Enviar</button>
         </form>
       </div>
-    </div>):<div className='grid grid-rows-[1fr_10fr_1fr] gap-4'>
-        No hay usuario selecionado
+    </div>):<div className='grid grid-rows-[1fr_10fr_1fr] gap-4 p-10'>
+       <span className='font-bold text-2xl'> No hay usuario selecionado</span>
       </div>}
  
     </>

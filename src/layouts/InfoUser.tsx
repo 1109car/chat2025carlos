@@ -2,6 +2,6 @@ import React from 'react'
 
 export const InfoUser = () => {
   return (
-    <div className='border'>InfoUser</div>
+    <div className='p-10'>Informacion del usuario en proceso de implementacion</div>
   )
 }

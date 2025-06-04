@@ -39,7 +39,7 @@ export const Friends = () => {
         await setDataFriends(data)
   })
   onEvent('amigos_mostrar', async(data) => {
-    console.log(data.name)
+    console.log(data)
       setAmigos(prev => [...prev, data.name]);
   
    
@@ -49,21 +49,21 @@ export const Friends = () => {
            emitEvent('amigos_register') 
   
     },[])
-function nameFriend(e,email ){
+async function nameFriend(e,email ){
   e.preventDefault()
   console.log(email )
-  emitEvent('get_usuarios', {
-    friendiid: email,
-  })
+  emitEvent('get_usuarios', 
+     email,
+  )
   // setAmigos(prev => prev.includes(email) ? prev : [...prev, email]);
        setAmigos(prev => [...prev, email]);
 }
 function nameenvio(e,data){
   e.preventDefault()
   console.log(data)
-  emitEvent('mensajeUser',{
-    userDos: data,
-  })
+  emitEvent('mensajeUser',
+    data,
+  )
 
 }
         const filteredNames = dataFriends.filter((name:data) =>
@@ -76,7 +76,8 @@ function nameenvio(e,data){
 
           }
   return (
-    <div className='pt-10 border flex flex-col p-6 gap-3'>
+    <div className='flex justify-between flex-col p-3 '>
+    <div className='pt-10 flex flex-col p-6 gap-3'>
         <div>
             <input type="text" placeholder='Buscar...'
             value={searchTerm}
@@ -86,11 +87,11 @@ function nameenvio(e,data){
             
             />      
        {isFocused && filteredNames.length > 0 &&(
-        <ul className="z-10 bg-black border w-full mt-1 rounded shadow">
+        <ul className="z-10 bg-black w-full mt-1 rounded shadow">
           {filteredNames.map((name:data) => (
             <li 
               key={name.email}
-              className="p-2 hover:bg-slate-800 cursor-pointer"
+              className="p-2 hover:bg-slate-900 cursor-pointer bg-slate-800 "
               onMouseDown={(e) => {setSearchTerm(name.email);nameFriend(e,name.email)}} // Evita que el blur se dispare antes de hacer clic
               
               //  onSubmit={(e) => {setClick((e.target as HTMLLIElement).innerText);console.log(name.email)}}
@@ -102,15 +103,17 @@ function nameenvio(e,data){
         </ul>
       )}
       </div>
+      {/* //............................................. */}
         <div>
       <ul>
         {amigos.map((email:string)=>(
-          <li key={email} onMouseDown={(e)=>{nameenvio(e,email);setSelectedFile(email)}}>{email}</li>
+          <li className='hover:bg-slate-400 hover:cursor-pointer p-2 rounded' key={email} onMouseDown={(e)=>{nameenvio(e,email);setSelectedFile(email)}}>{email}</li>
         ))}
         </ul>    
         </div>
-        <div>
-          <a href="/" onClick={salir}>salir</a> 
+        </div>
+        <div >
+          <a href="/" className='border text-xl pl-5 pr-5 hover:bg-transparent hover:bg-slate-400 hover:cursor-pointer'  onClick={salir}>salir</a> 
         </div>
         </div>
   )
