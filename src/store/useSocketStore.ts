@@ -11,7 +11,7 @@ interface SocketStore {
   emitEvent: (eventName: string, data?: any) => Promise<void>; // ahora devuelve Promise
   onEvent: (eventName: string, callback: (data: any) => void) => void ;
 }
-const SOCKET_URL = "https://chatopcional-1.onrender.com";
+const SOCKET_URL = "http://localhost:81/";
     
     const useSocketStore = create<SocketStore>((set, get) => {
       return {
