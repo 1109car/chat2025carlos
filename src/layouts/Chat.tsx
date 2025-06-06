@@ -15,8 +15,10 @@ export const Chat = () => {
   const [content, setContent] = useState('')
   const [nombre,setNombre] = useState('');
       const selectedFile = useFileStore((state) => state.selectedFile);
+      const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
       // const bottomRef = useRef(null);
-      let filtrad= null;
+  
       useEffect(() => {
      
     onEvent('mostrarMensaje', (data) => {
@@ -41,8 +43,8 @@ export const Chat = () => {
     onEvent('serverRoom', (data)=>{
 setRoom(data)
 
-    })
-   
+})
+
   }, []);
   useEffect(()=>{
      setMessages([]);
@@ -63,7 +65,9 @@ setRoom(data)
       
    
   }
-  
+  useEffect(() => {
+  messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+}, [messages]);
 
 
   return (
@@ -73,7 +77,7 @@ setRoom(data)
       <div className='bg-slate-600 p-3 rounded '><h3 className='font-bold text-xl'>{selectedFile}</h3></div>
       
      <div className=''>
-       <div className=' overflow-y-auto h-[33rem]'>
+       <div className=' overflow-y-auto h-[33rem]' >
         {messages.filter((ev) => ev.room === room).map((ev, index) => 
          
         {
@@ -83,7 +87,7 @@ setRoom(data)
   
     
         return(
-          <div
+          <div 
           key={index}
           className={`flex w-full mb-2 ${isCurrentUser ? 'justify-start' : 'justify-end'}`}
         >
@@ -94,6 +98,7 @@ setRoom(data)
         </div>  
           
         )})}
+       <div ref={messagesEndRef} />
       </div>
      </div>
 
