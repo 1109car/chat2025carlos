@@ -20,7 +20,7 @@ export const Friends = () => {
     // const [amigos, setAmigos] = useState<string[]>();
     // const [amigos, setAmigos] = useState<string[]>([]);
     const [amigos, setAmigos] = useState<string[]>([]);
-     const setSelectedFile = useFileStore((state) => state.setSelectedFile);
+     const setSelectedFile = useFileStore((state:any) => state.setSelectedFile);
 
 
 
@@ -40,8 +40,9 @@ export const Friends = () => {
   })
   onEvent('amigos_mostrar', async(data) => {
     console.log(data)
-      setAmigos(prev => [...prev, data.name]);
+       setAmigos(prev => [...prev, data.name]);
   
+      
    
   })
 
@@ -52,11 +53,14 @@ export const Friends = () => {
 async function nameFriend(e,email ){
   e.preventDefault()
   console.log(email )
-  emitEvent('get_usuarios', 
+ await emitEvent('get_usuarios', 
      email,
   )
-  // setAmigos(prev => prev.includes(email) ? prev : [...prev, email]);
-       setAmigos(prev => [...prev, email]);
+  
+
+  await setAmigos(prev => prev.includes(email) ? prev : [...prev, email]);
+    await setIsFocused(false)
+    await  setSearchTerm('');
 }
 function nameenvio(e,data){
   e.preventDefault()
@@ -75,22 +79,25 @@ function nameenvio(e,data){
 
 
           }
+       filteredNames.filter(rev=>rev <=3 )
   return (
     <div className='flex justify-between flex-col p-3 '>
     <div className='pt-10 flex flex-col p-6 gap-3'>
         <div>
             <input type="text" placeholder='Buscar...'
+            className='focus:outline-none focus:ring-0'
             value={searchTerm}
-            onChange={(e)=>{setSearchTerm(e.target.value)}}
+            onChange={async(e)=>{await setSearchTerm(e.target.value);}}
             onFocus={()=> {setIsFocused(true)}}
+          
             onBlur={()=>{setIsFocused(false)}}
             
             />      
-       {isFocused && filteredNames.length > 0 &&(
-        <ul className="z-10 bg-black w-full mt-1 rounded shadow">
-          {filteredNames.map((name:data) => (
+       {isFocused && filteredNames.length > 0  &&(
+        <ul className="z-10 bg-black mt-1 rounded shadow absolute w-[11rem] transition duration-300">
+          {filteredNames.slice(0, 3).map((name:data) => (
             <li 
-              key={name.email}
+              key={`${name.email}`}
               className="p-2 hover:bg-slate-900 cursor-pointer bg-slate-800 "
               onMouseDown={(e) => {setSearchTerm(name.email);nameFriend(e,name.email)}} // Evita que el blur se dispare antes de hacer clic
               
@@ -107,7 +114,7 @@ function nameenvio(e,data){
         <div>
       <ul>
         {amigos.map((email:string)=>(
-          <li className='hover:bg-slate-400 hover:cursor-pointer p-2 rounded' key={email} onMouseDown={(e)=>{nameenvio(e,email);setSelectedFile(email)}}>{email}</li>
+          <li className='hover:bg-slate-400 hover:cursor-pointer p-2 mt-2 rounded' key={email} onMouseDown={(e)=>{nameenvio(e,email);setSelectedFile(email)}}>{email}</li>
         ))}
         </ul>    
         </div>
