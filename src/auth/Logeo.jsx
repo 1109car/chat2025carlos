@@ -21,7 +21,7 @@ export const Logeo = ({ registerFunt}) => {
         
         parametro.preventDefault()
         console.log(formData,"formData")
-        const payload =  await fetch("http://localhost:3000/api/v1/auth/login",
+        const payload =  await fetch("https://chatopcional-1.onrender.com/api/v1/auth/login",
             {
                 method: "POST",
         headers:{
