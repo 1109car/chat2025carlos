@@ -20,19 +20,20 @@ export const Logeo = ({ registerFunt}) => {
         
         
         parametro.preventDefault()
-        
-        const payload =  await fetch("https://chatopcional-1.onrender.com/api/v1/auth/login",
+        console.log(formData,"formData")
+        const payload =  await fetch("http://localhost:3000/api/v1/auth/login",
             {
                 method: "POST",
         headers:{
             'content-type': 'application/json',
-            credentials:'include' 
-        }
-                ,
+        },
+        // credentials:'include' 
+                // ,
                 body: JSON.stringify(formData) 
             }
         )
         const respuesta =await  payload.json()
+        console.log(respuesta)
         if (respuesta.ok) {
             console.log(respuesta.token)   
             localStorage.setItem("token", respuesta.token) 

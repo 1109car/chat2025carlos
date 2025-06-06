@@ -16,9 +16,10 @@ export const Chat = () => {
   const [nombre,setNombre] = useState('');
       const selectedFile = useFileStore((state) => state.selectedFile);
       // const bottomRef = useRef(null);
-
-  useEffect(() => {
-    onEvent('mostrarMensaje', (data: ev[]) => {
+      let filtrad= null;
+      useEffect(() => {
+     
+    onEvent('mostrarMensaje', (data) => {
       if (Array.isArray(data) && data.length > 0) {
         
         setMessages(data);
@@ -26,9 +27,14 @@ export const Chat = () => {
       }
     });
 
-    onEvent('mensajeNuevo', (nuevoMensaje: ev) => {
-      setMessages(prev => [...prev, nuevoMensaje]);
-       
+    onEvent('mensajeNuevo', (nuevoMensaje) => {
+       let otr = messages.some(m => m.room === 4);
+       console.log(otr)
+       console.log(nuevoMensaje.room)
+     
+         setMessages(prev => [...prev, nuevoMensaje]);
+  
+      
     });
     emitEvent('serverRoom')
      emitEvent('mensajeUser')
@@ -41,6 +47,7 @@ setRoom(data)
   useEffect(()=>{
      setMessages([]);
    setRoom(null);
+  
   },[selectedFile])
 
   function mensajeENviado(e: React.FormEvent) {
@@ -48,13 +55,16 @@ setRoom(data)
     setContent('');
      console.log(room)
    
-        emitEvent('mensajon', { room: room, message: content });
+        emitEvent('mensajon', { room: room, message: content,select:selectedFile });
         
 
       
     // }
       
+   
   }
+  
+
 
   return (
     <>
@@ -64,7 +74,7 @@ setRoom(data)
       
      <div className=''>
        <div className=' overflow-y-auto h-[33rem]'>
-        {messages.map((ev, index) => 
+        {messages.filter((ev) => ev.room === room).map((ev, index) => 
          
         {
           let getEmail =  localStorage.getItem("email")
