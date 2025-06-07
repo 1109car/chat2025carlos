@@ -51,7 +51,7 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
             ...formData,
             [name]: value
         });
-        
+        navigate("/")
     }
 console.log(formData)
   return (
