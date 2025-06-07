@@ -36,12 +36,12 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
             localStorage.setItem("token", respuesta.token) 
             
             localStorage.setItem("email", respuesta.email) 
-            navigate("/")
+            navigate("https://carloschat.netlify.app/")
         }
         console.log(respuesta.token)
         localStorage.setItem("token", respuesta.token) 
         localStorage.setItem("email", respuesta.email) 
-        navigate("/")
+        navigate("https://carloschat.netlify.app/")
         connectSocket()
         
     }
@@ -51,7 +51,7 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
             ...formData,
             [name]: value
         });
-        navigate("/")
+     
     }
 console.log(formData)
   return (
