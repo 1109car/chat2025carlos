@@ -48,10 +48,7 @@ export const Logeo = ({ registerFunt}) => {
         localStorage.setItem("email", respuesta.email) 
         navigate("/pagina")
         connectSocket()
-           setTimeout(() => {
-    window.location.reload(); // 👈 recarga la página después de 2 segundos
       
-  }, 1000);
     }
     function handleChange(event) {
         const { name, value } = event.target;
