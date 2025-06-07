@@ -10,6 +10,7 @@ export const Logeo = ({ registerFunt}) => {
         email:"",
         password: ""
     });
+      const [loading, setLoading] = useState(false);
   const showRegister = () =>{
         registerRef.current.classList.remove("pointer-events-none", "opacity-50")
         loginRef.current.classList.add("pointer-events-none", "opacity-50")
@@ -46,7 +47,7 @@ export const Logeo = ({ registerFunt}) => {
         localStorage.setItem("email", respuesta.email) 
         navigate("/pagina")
         connectSocket()
-        
+        setLoading(true)
     }
     function handleChange(event) {
         const { name, value } = event.target;
@@ -90,6 +91,7 @@ export const Logeo = ({ registerFunt}) => {
            <div  className="flex justify-end">
                         <button className="font-sans hover:text-gray-700 border-b hover:border-b-gray-700" onClick={registerFunt}>Registrate</button>
             </div>
+            {loading && ( <p className="text-blue-500 text-center font-semibold">Cargando...</p>)}
           </div>
    
   )
