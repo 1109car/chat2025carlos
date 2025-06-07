@@ -20,7 +20,7 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
         
         parametro.preventDefault()
         
-        const payload =  await fetch("http://localhost:3000/api/v1/auth/register",
+        const payload =  await fetch("https://chatopcional-1.onrender.com/api/v1/auth/register",
             {
                 method: "POST",
                 headers:{
