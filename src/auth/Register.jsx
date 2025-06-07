@@ -24,7 +24,7 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
                 method: "POST",
                 headers:{
                     'content-type': 'application/json',
-                    credentials:'include' 
+                    // credentials:'include' 
                 }
                 ,
                 body: JSON.stringify(formData) 
