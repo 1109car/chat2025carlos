@@ -7,8 +7,8 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
    const loginRef = useRef(null)
       const {connectSocket, disconnectSocket} = useSocketStore()
     const [formData, setFormData ] =  useState({
-        email:"",
         name:"",
+        email:"",
         password: ""
     });
 
@@ -24,15 +24,15 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
                 method: "POST",
                 headers:{
                     'content-type': 'application/json',
-                    // credentials:'include' 
                 }
                 ,
-                body: JSON.stringify(formData) 
+                body: JSON.stringify(formData) ,
+                 //credentials:'include' 
             }
         )
         const respuesta =await  payload.json()
         if (respuesta.ok) {
-            console.log(respuesta.token)   
+            console.log(respuesta.token,"token")   
             localStorage.setItem("token", respuesta.token) 
             
             localStorage.setItem("email", respuesta.email) 
@@ -53,9 +53,7 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
         });
         
     }
- function enviar(){
-    
- }
+console.log(formData)
   return (
   
        
@@ -71,13 +69,13 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
                 className="flex flex-col items-center gap-5">
                     <input
                     className=" pl-2 pr-2 pt-1 pb-1 rounded-[7px] outline-none"
-                    type="name"
+                    type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}  placeholder="Nombre..." />
                      <input
                     className=" pl-2 pr-2 pt-1 pb-1 rounded-[7px] outline-none"
-                    type="email"
+                    type="text"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}  placeholder="Gmail..." />
