@@ -19,6 +19,7 @@ export const Logeo = ({ registerFunt}) => {
     const navigate = useNavigate();
     async function info(parametro){
         
+        setLoading(true)
         
         parametro.preventDefault()
         console.log(formData,"formData")
@@ -47,7 +48,6 @@ export const Logeo = ({ registerFunt}) => {
         localStorage.setItem("email", respuesta.email) 
         navigate("/pagina")
         connectSocket()
-        setLoading(true)
     }
     function handleChange(event) {
         const { name, value } = event.target;
