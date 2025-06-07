@@ -36,12 +36,13 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
             localStorage.setItem("token", respuesta.token) 
             
             localStorage.setItem("email", respuesta.email) 
-            navigate("https://carloschat.netlify.app/")
+            navigate("/")
         }
         console.log(respuesta.token)
         localStorage.setItem("token", respuesta.token) 
         localStorage.setItem("email", respuesta.email) 
-        navigate("https://carloschat.netlify.app/")
+        navigate("/")
+        window.location.reload(); 
         connectSocket()
         
     }
