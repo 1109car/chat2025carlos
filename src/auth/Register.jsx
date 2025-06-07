@@ -36,12 +36,12 @@ export const Register =forwardRef(({ loginFunt }, ref) => {
             localStorage.setItem("token", respuesta.token) 
             
             localStorage.setItem("email", respuesta.email) 
-            navigate("/pagina")
+            navigate("/")
         }
         console.log(respuesta.token)
         localStorage.setItem("token", respuesta.token) 
         localStorage.setItem("email", respuesta.email) 
-        navigate("/pagina")
+        navigate("/")
         connectSocket()
         
     }
