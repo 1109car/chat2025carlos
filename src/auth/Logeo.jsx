@@ -37,7 +37,7 @@ export const Logeo = ({ registerFunt }) => {
       const respuesta = await response.json();
       console.log(respuesta);
 
-      if (respuesta.ok) {
+      if (respuesta.token) {
         localStorage.setItem("token", respuesta.token);
         localStorage.setItem("email", respuesta.email);
         connectSocket();
