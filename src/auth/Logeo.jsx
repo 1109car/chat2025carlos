@@ -4,8 +4,7 @@ import useSocketStore from "../store/useSocketStore";
 
 export const Logeo = ({ registerFunt }) => {
   const registerRef = useRef(null);
-  const { connectSocket } = useSocketStore();
-
+  const { connectSocket, waitForConnection } = useSocketStore(); // ✅ también usamos waitForConnection
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -24,33 +23,39 @@ export const Logeo = ({ registerFunt }) => {
     try {
       const response = await fetch("https://chatopcional-1.onrender.com/api/v1/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        throw new Error(`Error al conectar. Código: ${response.status}`);
+        if (response.status === 401) {
+          setErrorMsg("Correo o contraseña incorrectos.");
+        } else {
+          setErrorMsg(`Error al conectar. Código: ${response.status}`);
+        }
+        return;
       }
 
-      const respuesta = await response.json();
-      console.log(respuesta);
+      const data = await response.json();
+      console.log("Respuesta del backend:", data);
 
-      if (respuesta.token) {
-        localStorage.setItem("token", respuesta.token);
-        localStorage.setItem("email", respuesta.email);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("email", data.email);
+
         connectSocket();
+        await waitForConnection(); // ✅ espera a que el socket esté conectado
+
         navigate("/pagina");
       } else {
-        setErrorMsg("Credenciales incorrectas.");
+        setErrorMsg("Respuesta inesperada del servidor.");
       }
 
     } catch (error) {
       console.error("Login error:", error);
       setErrorMsg("No se pudo conectar al servidor. Intenta nuevamente.");
     } finally {
-      setLoading(false);
+      setLoading(false); // ✅ se ejecuta siempre
     }
   }
 
